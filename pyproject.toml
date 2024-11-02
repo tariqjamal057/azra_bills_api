@@ -1,0 +1,99 @@
+[tool.poetry]
+name = "azra-bills"
+version = "1.0.0"
+description = "A web-based billing management system for organizations and vendors, allowing bill creation, updates, customer assignments, and manual cash payment logging. Customers can view and pay bills via various methods. Includes reporting, transaction tracking, and high-value alerts for secure and efficient financial management."
+authors = ["Tariq Jamal A <tariqjamal4267324@gmail.com>"]
+license = "LICENSE"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.12.7"
+fastapi = {extras = ["standard"], version = "^0.115.4"}
+pydantic = "^2.9.2"
+alembic = "^1.13.3"
+sqlalchemy = "^2.0.36"
+celery = "^5.4.0"
+asgiref = "^3.8.1"
+bcrypt = "^4.2.0"
+psycopg-binary = "^3.2.3"
+pydantic-settings = "^2.6.1"
+psycopg = "^3.2.3"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.10.0"
+isort = "^5.13.2"
+docformatter = "^1.7.5"
+djlint = "^1.35.4"
+pre-commit = "^4.0.1"
+ruff = "^0.7.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.black]
+line-length = 99
+
+[tool.isort]
+profile = "black"
+
+[tool.docformatter]
+recursive = true
+wrap-summaries = 99
+wrap-descriptions = 99
+
+[tool.djlint]
+blank_line_after_tag="load,extends,include,block,endblock"
+blank_line_before_tag="load,extends,include,block,endblock"
+close_void_tags=true
+exclude=".venv,venv,env"
+format_attribute_template_tags=true
+format_css=true
+format_js=true
+indent_size=4
+max_line_length=120
+
+[tool.ruff]
+# Exclude files and directories added in below list
+exclude = [
+    ".migrations",
+    ".git",
+    ".venv",
+    ".vscode",
+    ".ruff_cach",
+    "venv",
+    "__pycache__"
+]
+
+# Same as Black.
+line-length = 99
+
+[tool.ruff.lint]
+ignore = []
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = []
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+# Enable auto-formatting of code examples in docstrings. Markdown,
+# reStructuredText code/literal blocks and doctests are all supported.
+#
+# This is currently disabled by default, but it is planned for this
+# to be opt-out in the future.
+docstring-code-format = true
+
+# Set the line length limit used when formatting code snippets in
+# docstrings.
+#
+# This only has an effect when the `docstring-code-format` setting is
+# enabled.
+docstring-code-line-length = "dynamic"

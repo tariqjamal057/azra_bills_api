@@ -1,0 +1,33 @@
+services:
+  web:
+    build: .
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    env:
+      - .env
+    volumes:
+      - .:/app
+    networks:
+      - app-network
+  db:
+      image: postgres:16-alpine
+      volumes:
+        - postgres_data:/var/lib/postgresql/data/
+      expose:
+        - 5432
+      environment:
+        - POSTGRES_USER=azra_bills
+        - POSTGRES_PASSWORD=azra_bills
+        - POSTGRES_DB=azra_bills
+      networks:
+        - app-network
+
+volumes:
+      postgres_data: 
+  
+networks:
+  app-network:
+    driver: bridge
