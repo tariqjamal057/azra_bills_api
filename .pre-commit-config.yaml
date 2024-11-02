@@ -1,0 +1,60 @@
+exclude: .migrations\/.
+default_stages: [pre-commit, manual]
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+    - id: check-yaml
+      name: Check YAML
+      description: Simply check YAML files for parseable syntax.
+    - id: check-merge-conflict
+      name: Check Merge Conflict String
+      description: Check for files that contain merge conflict strings.
+  - repo: local
+    hooks:
+      - id: black
+        name: Black Formatter
+        description: Format Python code using Black
+        entry: black
+        language: python
+        types: [python]
+        
+      - id: isort
+        name: Isort Formatter 
+        description: Sort Python imports
+        entry: isort
+        language: python
+        types: [python]
+        
+      - id: docformatter
+        name: Docformatter
+        description: Format docstrings to PEP 257
+        entry: docformatter
+        language: python
+        types: [python]
+        args: [--in-place, --config, ./pyproject.toml]
+
+      - id: djlint
+        name: Djlint
+        description: Lint and format Django templates
+        entry: djlint
+        language: python
+        types: [html]
+        args: ["--reformat", "--format-css", "--format-js"]
+
+      - id: ruff
+        name: Ruff Linter and Formatter
+        description: Python linter and formatter
+        entry: ruff check
+        args: [--fix,--unsafe-fixes, --exit-non-zero-on-fix]
+        language: python
+        types: [python]
+        require_serial: true
+    
+      - id: ruff-format
+        name: Ruff Formatter
+        description: Python formatter
+        entry: ruff format
+        language: python
+        types: [python]
+        require_serial: true

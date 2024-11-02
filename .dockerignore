@@ -1,0 +1,13 @@
+# environments
+.conda
+.venv
+
+
+# cache files
+__pycache__
+.cache
+.ruff-cache
+
+# ignore git file
+.git
+

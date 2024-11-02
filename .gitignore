@@ -1,0 +1,10 @@
+# environments
+.conda
+.venv
+
+# env file
+.env
+
+# cache files
+__pycache__
+.ruff-cache
