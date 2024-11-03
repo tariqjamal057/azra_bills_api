@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "azra-bills"
+name = "azra_lms_api"
 version = "1.0.0"
-description = "A web-based billing management system for organizations and vendors, allowing bill creation, updates, customer assignments, and manual cash payment logging. Customers can view and pay bills via various methods. Includes reporting, transaction tracking, and high-value alerts for secure and efficient financial management."
+description = "A SaaS-based laundry management system for single and multi-store setups. Enables bill generation, updates, customer assignment, and cash logging. Customers can view and pay bills via UPI, wallets, or cards and receive status reminders. Features dashboards, transaction reports, and high-value alerts for streamlined, secure operations."
 authors = ["Tariq Jamal A <tariqjamal4267324@gmail.com>"]
 license = "LICENSE"
 readme = "README.md"
