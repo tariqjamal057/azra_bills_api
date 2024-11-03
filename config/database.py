@@ -47,20 +47,3 @@ async def set_tenant_schema(session: SqlAlchemyAsyncSession, schema_name: str):
         schema_name (str): The name of the schema to check.
     """
     await session.execute(text(f"SET search_path TO {schema_name}"))
-
-
-class BaseModal(Base):
-    """Base modal class for SQLAlchemy models.
-
-    Contains common fields like created_at and updated_at.
-    """
-
-    _abstract_ = True
-
-    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
-    updated_at = Column(
-        DateTime(timezone=True),
-        server_default=func.now(),
-        server_onupdate=func.now(),
-        nullable=False,
-    )
