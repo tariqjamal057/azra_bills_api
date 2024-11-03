@@ -13,7 +13,7 @@ Key Components:
 - set_tenant_schema: Utility for dynamic schema switching
 """
 
-from sqlalchemy import Column, DateTime, MetaData, func, text
+from sqlalchemy import MetaData, text
 from sqlalchemy.ext.asyncio import AsyncSession as SqlAlchemyAsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import declarative_base, sessionmaker

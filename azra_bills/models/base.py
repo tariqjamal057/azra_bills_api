@@ -1,8 +1,9 @@
-from config.database import Base
 from sqlalchemy import DateTime, func
 from sqlalchemy.ext.asyncio import AsyncAttrs
-
 from sqlalchemy.orm import mapped_column
+
+from config.database import Base
+
 
 class BaseModal(Base, AsyncAttrs):
     """Base modal class for SQLAlchemy models.
