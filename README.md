@@ -1,2 +1,2 @@
-# azra_bills
-A web-based billing system for organizations and vendors, enabling bill creation, updates, customer assignment, and manual cash payment logging. Customers can view and pay bills via UPI, wallets, or cards. Features include dashboards, transaction reports, and high-value alerts, offering seamless financial oversight and secure payment handling.
+# azra_lms_api
+A SaaS-based laundry management system for single and multi-store setups. Enables bill generation, updates, customer assignment, and cash logging. Customers can view and pay bills via UPI, wallets, or cards and receive status reminders. Features dashboards, transaction reports, and high-value alerts for streamlined, secure operations.
