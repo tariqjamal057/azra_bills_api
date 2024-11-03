@@ -1,13 +1,16 @@
+from typing import TYPE_CHECKING, List
 
-
+from sqlalchemy import Boolean, Integer, String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from azra_bills.models.base import BaseModal
-from sqlalchemy.orm import mapped_column, Mapped, relationship
-from sqlalchemy import Integer, String, Float, ForeignKey, Boolean
-from typing import List
+
+if TYPE_CHECKING:
+    from azra_bills.models import State
+
 
 class Country(BaseModal):
-    __tablename__ = 'countries'
+    __tablename__ = "countries"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
 
@@ -26,6 +29,3 @@ class Country(BaseModal):
     is_operational: Mapped[bool] = mapped_column(Boolean, default=False)
 
     states: Mapped[List["State"]] = relationship(back_populates="country")
-
-
-
