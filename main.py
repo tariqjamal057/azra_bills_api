@@ -6,7 +6,7 @@ app = FastAPI(
     "facilitating bill generation, updates, customer assignment, and cash payment logging. "
     "Customers can view and pay bills through multiple channels and receive status reminders. "
     "It includes dashboards, transaction reporting, and high-value alerts for efficient and "
-    "secure operations.",
+    "secure operations. ",
     description="This SaaS-based laundry management solution supports both single-location and "
     "multi-store setups, streamlining billing and payment processes. It enables businesses to "
     "generate, update, and assign bills, log cash payments, and provide reminders on order "
