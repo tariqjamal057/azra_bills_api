@@ -2,7 +2,8 @@ from sqlalchemy import DateTime, func
 from sqlalchemy.ext.asyncio import AsyncAttrs
 from sqlalchemy.orm import mapped_column
 
-from config.database import Base
+from azra_bills.mixins import SoftDeleteMixin
+from core.database import Base
 
 
 class BaseModal(Base, AsyncAttrs):
@@ -20,3 +21,9 @@ class BaseModal(Base, AsyncAttrs):
         server_onupdate=func.now(),
         nullable=False,
     )
+
+
+class BaseModalWithSoftDelete(BaseModal, SoftDeleteMixin):
+    """Base modal class for SQLAlchemy models with soft delete functionality."""
+
+    __abstract__ = True
