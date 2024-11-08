@@ -1,12 +1,15 @@
 import asyncio
+import sys
 from logging.config import fileConfig
 
 from alembic import context
-from sqlalchemy import pool
 from sqlalchemy.engine import Connection
-from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from config.database import Base
+from core.database import Base, async_engine
+
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -27,6 +30,22 @@ target_metadata = Base.metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+
+
+async def set_migration_db_schema(connection: Connection, schema: str) -> None:
+    """Set the database schema for the migration."""
+    await connection.execute(f"SET search_path TO {schema}")
+
+
+async def get_db_schemas(connection: Connection) -> list[str]:
+    """Get the list of schemas from the database."""
+    schemas = (
+        await connection.execute(
+            "SELECT schema_name FROM information_schema.schemata "
+            "where schema_name not in ('pg_catalog', 'information_schema', 'pg_toast')"
+        )
+    ).all()
+    return [schema[0] for schema in schemas]
 
 
 def run_migrations_offline() -> None:
@@ -64,16 +83,25 @@ def do_run_migrations(connection: Connection) -> None:
 async def run_async_migrations() -> None:
     """In this scenario we need to create an Engine and associate a connection with the context."""
 
-    connectable = async_engine_from_config(
-        config.get_section(config.config_ini_section, {}),
-        prefix="sqlalchemy.",
-        poolclass=pool.NullPool,
-    )
-
-    async with connectable.connect() as connection:
-        await connection.run_sync(do_run_migrations)
-
-    await connectable.dispose()
+    async_connection = async_engine
+    try:
+        custom_schema = context.get_x_argument(as_dictionary=True).get("tenant")
+        async with async_connection.connect() as connection:
+            if custom_schema:
+                await set_migration_db_schema(connection, custom_schema)
+                await connection.run_sync(do_run_migrations)
+            else:
+                schemas = await get_db_schemas(connection)
+                if not schemas:
+                    print("No schema found in the database. Skipping migrations.")
+                else:
+                    for schema in schemas:
+                        await set_migration_db_schema(connection, schema)
+                        await connection.run_sync(do_run_migrations)
+    except Exception as e:
+        print(e)
+    finally:
+        await async_connection.dispose()
 
 
 def run_migrations_online() -> None:
