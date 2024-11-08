@@ -15,7 +15,7 @@ Usage:
 
 from contextlib import asynccontextmanager
 
-from config.database import AsyncSession
+from core.database import AsyncSession
 
 
 @asynccontextmanager

@@ -3,6 +3,8 @@
 This module loads application settings from environment variables and a .env file.
 """
 
+from typing import Literal
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -19,6 +21,7 @@ class Settings(BaseSettings):
     """
 
     DATABASE_URL: str
+    ENVIRONMENT: Literal["development", "testing", "production"]
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
