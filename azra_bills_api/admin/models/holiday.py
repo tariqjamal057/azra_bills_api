@@ -3,10 +3,10 @@ from typing import TYPE_CHECKING, Optional
 from sqlalchemy import Date, ForeignKey, Integer, String, Time
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from azra_bills.models import BaseModalWithSoftDelete
+from azra_bills_api.models import BaseModalWithSoftDelete
 
 if TYPE_CHECKING:
-    from azra_bills.admin.models import Store
+    from azra_bills_api.admin.models import Store
 
 
 class Holiday(BaseModalWithSoftDelete):

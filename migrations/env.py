@@ -14,7 +14,7 @@ from alembic import context
 from sqlalchemy import text
 from sqlalchemy.engine import Connection
 
-from azra_bills.admin.models import *  # noqa: F403
+from azra_bills_api.admin.models import *  # noqa: F403
 from config.settings import settings
 from core.database import Base, async_engine
 

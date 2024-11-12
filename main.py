@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 app = FastAPI(
-    title="AZRA LMS API",
+    title="AZRA Bills API",
     summary="A SaaS laundry management system for single and multi-store businesses, "
     "facilitating bill generation, updates, customer assignment, and cash payment logging. "
     "Customers can view and pay bills through multiple channels and receive status reminders. "

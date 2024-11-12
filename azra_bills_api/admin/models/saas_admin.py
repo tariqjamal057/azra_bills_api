@@ -3,10 +3,10 @@ from typing import TYPE_CHECKING
 from sqlalchemy import Boolean, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from azra_bills.models import BaseModal
+from azra_bills_api.models import BaseModal
 
 if TYPE_CHECKING:
-    from azra_bills.admin.models import Store
+    from azra_bills_api.admin.models import Store
 
 
 class SAASAdmin(BaseModal):

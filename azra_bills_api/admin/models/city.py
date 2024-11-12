@@ -3,10 +3,10 @@ from typing import TYPE_CHECKING
 from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from azra_bills.models import BaseModal, DeleteMixin
+from azra_bills_api.models import BaseModal, DeleteMixin
 
 if TYPE_CHECKING:
-    from azra_bills.admin.models import State
+    from azra_bills_api.admin.models import State
 
 
 class City(BaseModal, DeleteMixin):
