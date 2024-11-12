@@ -1,3 +1,5 @@
+"""This module contains the Country model."""
+
 from typing import TYPE_CHECKING, List
 
 from sqlalchemy import Boolean, Integer, String
@@ -10,6 +12,33 @@ if TYPE_CHECKING:
 
 
 class Country(BaseModal, DeleteMixin):
+    """
+    Represents a country in the database.
+
+    This class defines the structure and relationships for the 'countries' table.
+
+    Attributes
+    id (int): The primary key of the country.
+
+    name (str): The name of the country.
+    numeric_code (str): The numeric code of the country.
+    phone_code (str): The phone code of the country.
+    capital (str): The capital of the country.
+    currency (str): The currency of the country.
+    currency_name (str): The name of the currency.
+    currency_symbol (str): The symbol of the currency.
+    region (str): The region of the country.
+    region_id (int): The region ID of the country.
+    subregion (str): The subregion of the country.
+    subregion_id (int): The subregion ID of the country.
+
+    states (List[State]): The relationship to the State model.
+
+    Inherits from:
+        BaseModal: Provides common functionality for all models.
+        DeleteMixin: Adds soft delete capability to the model.
+    """
+
     __tablename__ = "countries"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -25,7 +54,5 @@ class Country(BaseModal, DeleteMixin):
     region_id: Mapped[int] = mapped_column(Integer)
     subregion: Mapped[str] = mapped_column(String(50))
     subregion_id: Mapped[int] = mapped_column(Integer)
-    nationality: Mapped[str] = mapped_column(String(50))
-    is_operational: Mapped[bool] = mapped_column(Boolean, default=False)
 
     states: Mapped[List["State"]] = relationship(back_populates="country")

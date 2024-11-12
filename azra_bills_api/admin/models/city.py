@@ -1,3 +1,5 @@
+"""This module contains the City model."""
+
 from typing import TYPE_CHECKING
 
 from sqlalchemy import ForeignKey, Integer, String
@@ -10,6 +12,24 @@ if TYPE_CHECKING:
 
 
 class City(BaseModal, DeleteMixin):
+    """
+    Represents a city in the database.
+
+    This class defines the structure and relationships for the 'cities' table.
+
+    Attributes:
+        id (int): The primary key of the city.
+
+        state_id (int): The foreign key referencing the associated state.
+        state (State): The relationship to the State model.
+
+        name (str): The name of the city.
+
+    Inherits from:
+        BaseModal: Provides common functionality for all models.
+        DeleteMixin: Adds soft delete capability to the model.
+    """
+    
     __tablename__ = "cities"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)

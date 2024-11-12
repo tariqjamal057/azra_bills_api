@@ -1,3 +1,5 @@
+"""This module contains the imports of various models added in admin app."""
+
 from azra_bills_api.admin.models.city import City as City
 from azra_bills_api.admin.models.country import Country as Country
 from azra_bills_api.admin.models.holiday import Holiday as Holiday
