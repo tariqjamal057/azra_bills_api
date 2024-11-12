@@ -1,19 +1,28 @@
+"""Alembic migration environment setup.
+
+This module handles initializing and configuring the Alembic migration environment for the FastAPI
+application.
+
+It provides functions to run migrations and configure the migration context. The context is
+configured by connecting to the database engine and targeting the metadata from models.py.
+"""
+
 import asyncio
-import sys
 from logging.config import fileConfig
 
 from alembic import context
+from sqlalchemy import text
 from sqlalchemy.engine import Connection
 
+from azra_bills.admin.models import *  # noqa: F403
+from config.settings import settings
 from core.database import Base, async_engine
-
-if sys.platform == "win32":
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
+config.set_main_option("sqlalchemy.url", str(settings.DATABASE_URL))
+
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -32,20 +41,20 @@ target_metadata = Base.metadata
 # ... etc.
 
 
-async def set_migration_db_schema(connection: Connection, schema: str) -> None:
-    """Set the database schema for the migration."""
-    await connection.execute(f"SET search_path TO {schema}")
+async def run_migrations_for_tenant(connection, schema_name):
+    """Run migrations for a specific tenant schema.
 
+    This function performs the following steps:
+    1. Sets the search path to the specified schema.
+    2. Creates or updates tenant-specific views.
+    3. Runs migrations for the schema.
 
-async def get_db_schemas(connection: Connection) -> list[str]:
-    """Get the list of schemas from the database."""
-    schemas = (
-        await connection.execute(
-            "SELECT schema_name FROM information_schema.schemata "
-            "where schema_name not in ('pg_catalog', 'information_schema', 'pg_toast')"
-        )
-    ).all()
-    return [schema[0] for schema in schemas]
+    Args:
+        connection: The database connection to use for migrations.
+        schema_name (str): The name of the tenant schema to migrate.
+    """
+    await set_search_path(connection, schema_name)
+    await run_migrations_for_schema(connection)
 
 
 def run_migrations_offline() -> None:
@@ -69,6 +78,12 @@ def run_migrations_offline() -> None:
 
 
 def do_run_migrations(connection: Connection) -> None:
+    """This allows running the migration context against a passed-in database connection instead of
+    creating a new connection.
+
+    Args:
+        connection: The SQLAlchemy database connection to use for migrations.
+    """
     context.configure(
         connection=connection,
         target_metadata=target_metadata,
@@ -80,28 +95,51 @@ def do_run_migrations(connection: Connection) -> None:
         context.run_migrations()
 
 
+async def set_search_path(connection: Connection, schema: str) -> None:
+    """Set the search path for the given schema."""
+    await connection.execute(text(f"set search_path to {schema}"))
+    await connection.commit()
+    connection.dialect.default_schema_name = schema
+
+
+async def run_migrations_for_schema(connection) -> None:
+    """Run migrations for a specific schema."""
+    await connection.run_sync(do_run_migrations)
+
+
+async def fetch_db_schemas(connection) -> list:
+    """Fetch the list of schemas from the database."""
+    return (
+        await connection.scalars(
+            text(
+                """SELECT schema_name FROM information_schema.schemata
+                where schema_name not in ('pg_catalog', 'information_schema', 'pg_toast')"""
+            )
+        )
+    ).all()
+
+
 async def run_async_migrations() -> None:
     """In this scenario we need to create an Engine and associate a connection with the context."""
 
-    async_connection = async_engine
+    connectable = async_engine
     try:
-        custom_schema = context.get_x_argument(as_dictionary=True).get("tenant")
-        async with async_connection.connect() as connection:
-            if custom_schema:
-                await set_migration_db_schema(connection, custom_schema)
-                await connection.run_sync(do_run_migrations)
-            else:
-                schemas = await get_db_schemas(connection)
-                if not schemas:
-                    print("No schema found in the database. Skipping migrations.")
+        # Get the schema name from alembic upgrade command
+        user_schema_name = context.get_x_argument(as_dictionary=True).get("tenant")
+        async with connectable.connect() as connection:
+            if user_schema_name is None:
+                schema_list = await fetch_db_schemas(connection)
+                if len(schema_list) > 0:
+                    for schema in schema_list:
+                        await run_migrations_for_tenant(connection, schema)
                 else:
-                    for schema in schemas:
-                        await set_migration_db_schema(connection, schema)
-                        await connection.run_sync(do_run_migrations)
-    except Exception as e:
-        print(e)
+                    print("No schemas found in the database. Skipping migrations.")
+            else:
+                await run_migrations_for_tenant(connection, user_schema_name)
+    except Exception as error:
+        print(error)
     finally:
-        await async_connection.dispose()
+        await connectable.dispose()
 
 
 def run_migrations_online() -> None:
