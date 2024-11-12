@@ -23,10 +23,10 @@ from config.settings import settings
 async_engine = create_async_engine(settings.DATABASE_URL)
 
 AsyncSession = sessionmaker(
-    autocommit=False,
-    autoflush=False,
     bind=async_engine,
     class_=SqlAlchemyAsyncSession,
+    autocommit=False,
+    autoflush=False,
 )
 
 naming_convention = {

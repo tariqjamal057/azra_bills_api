@@ -3,8 +3,6 @@ import time
 import uuid
 from enum import Enum
 
-from sqlalchemy import CHAR, TypeDecorator
-
 
 def uuid_generator():
     return str(uuid.uuid4())
@@ -65,23 +63,3 @@ class ULIDGenerator:
 
         # Combine the two parts to form the ULID
         return timestamp_encoded + randomness_encoded
-
-
-# Define a custom SQLAlchemy type to handle ULIDs
-class ULIDType(TypeDecorator):
-    """Custom SQLAlchemy type for ULID."""
-
-    impl = CHAR(26)  # ULIDs are 26 characters long
-
-    def process_bind_param(self, value, dialect):
-        # Ensure value is a 26-character ULID string when stored in the database
-        if isinstance(value, str) and len(value) == 26:
-            return value
-        elif value is None:
-            return None
-        else:
-            raise ValueError("Invalid ULID format")
-
-    def process_result_value(self, value, dialect):
-        # Return the ULID string as-is when retrieved
-        return value
