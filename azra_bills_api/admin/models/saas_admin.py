@@ -12,8 +12,7 @@ if TYPE_CHECKING:
 
 
 class SAASAdmin(BaseModal):
-    """
-    Represents a SAAS admin in the database.
+    """Represents a SAAS admin in the database.
 
     This class defines the structure and relationships for the 'saas_admins' table.
 
@@ -34,6 +33,7 @@ class SAASAdmin(BaseModal):
     Inherits from:
         BaseModal: Provides common functionality for all models.
     """
+
     __tablename__ = "saas_admins"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)

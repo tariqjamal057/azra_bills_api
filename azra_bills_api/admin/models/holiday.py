@@ -13,8 +13,7 @@ if TYPE_CHECKING:
 
 
 class Holiday(BaseModalWithSoftDelete):
-    """
-    Represents a holiday in the database.
+    """Represents a holiday in the database.
 
     This class defines the structure and relationships for the 'holidays' table.
 
@@ -36,6 +35,7 @@ class Holiday(BaseModalWithSoftDelete):
     Inherits from:
         BaseModalWithSoftDelete: Provides common functionality for all models.
     """
+
     __tablename__ = "holidays"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -52,9 +52,9 @@ class Holiday(BaseModalWithSoftDelete):
 
     store: Mapped["Store"] = relationship(back_populates="store_holidays")
 
+
 class HolidayType(BaseEnum):
-    """
-    Enumeration representing different types of holidays.
+    """Enumeration representing different types of holidays.
 
     Attributes:
         PUBLIC_HOLIDAY (int): Represents a public holiday (value: 10).

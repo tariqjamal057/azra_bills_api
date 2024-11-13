@@ -1,4 +1,5 @@
 """This module contains the State model."""
+
 from typing import TYPE_CHECKING, List
 
 from sqlalchemy import ForeignKey, Integer, String
@@ -12,8 +13,7 @@ if TYPE_CHECKING:
 
 
 class State(BaseModal, DeleteMixin):
-    """
-    Represents a state in the database.
+    """Represents a state in the database.
 
     This class defines the structure and relationships for the 'states' table.
 
@@ -33,6 +33,7 @@ class State(BaseModal, DeleteMixin):
         BaseModal: Provides common functionality for all models.
         DeleteMixin: Adds soft delete capability to the model.
     """
+
     __tablename__ = "states"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -46,13 +47,14 @@ class State(BaseModal, DeleteMixin):
 
     cities: Mapped[List["City"]] = relationship(back_populates="state")
 
+
 class StateTypeEnum(BaseEnum):
-    """
-    Enumeration class representing different types of states.
+    """Enumeration class representing different types of states.
 
     Attributes:
         STATE (int): Represents a state.
         UNION_TERITORY (int): Represents a union territory.
     """
+
     STATE = 10
     UNION_TERITORY = 20

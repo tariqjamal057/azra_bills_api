@@ -2,7 +2,7 @@
 
 from typing import TYPE_CHECKING, List
 
-from sqlalchemy import Boolean, Integer, String
+from sqlalchemy import Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from azra_bills_api.models import BaseModal, DeleteMixin
@@ -12,8 +12,7 @@ if TYPE_CHECKING:
 
 
 class Country(BaseModal, DeleteMixin):
-    """
-    Represents a country in the database.
+    """Represents a country in the database.
 
     This class defines the structure and relationships for the 'countries' table.
 

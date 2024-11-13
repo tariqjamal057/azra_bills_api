@@ -15,8 +15,7 @@ if TYPE_CHECKING:
 
 
 class Store(BaseModalWithSoftDelete):
-    """
-    Represents a store in the database.
+    """Represents a store in the database.
 
     This class defines the structure and relationships for the 'stores' table.
 
@@ -37,6 +36,7 @@ class Store(BaseModalWithSoftDelete):
     Inherits from:
         BaseModalWithSoftDelete: Provides common functionality for all models.
     """
+
     __tablename__ = "stores"
 
     id: Mapped[str] = mapped_column(
@@ -54,9 +54,9 @@ class Store(BaseModalWithSoftDelete):
     store_holidays: Mapped[List["Holiday"]] = relationship(back_populates="store")
     store_detail: Mapped["StoreDetail"] = relationship(back_populates="store")
 
+
 class StoreDetail(BaseModalWithSoftDelete):
-    """
-    Represents the details of a store in the database.
+    """Represents the details of a store in the database.
 
     This class defines the structure and relationships for the 'store_details' table.
 
@@ -87,7 +87,8 @@ class StoreDetail(BaseModalWithSoftDelete):
         has_parking_facility (bool): Indicates if the store has parking facility.
         has_wifi_facility (bool): Indicates if the store has WiFi facility.
 
-        contact_details (List[StoreContactDetail]): The relationship to the StoreContactDetail model.
+        contact_details (List[StoreContactDetail]): The relationship to the
+        StoreContactDetail model.
 
     Inherits from:
         BaseModalWithSoftDelete: Provides common functionality for all models.
@@ -121,13 +122,13 @@ class StoreDetail(BaseModalWithSoftDelete):
     has_parking_facility: Mapped[Optional[bool]] = mapped_column(Boolean)
     has_wifi_facility: Mapped[Optional[bool]] = mapped_column(Boolean)
 
-    contact_details: Mapped[List["StoreContactDetail"]] = relationship(back_populates="store_detail")
+    contact_details: Mapped[List["StoreContactDetail"]] = relationship(
+        back_populates="store_detail"
+    )
 
 
 class StoreContactDetail(BaseModalWithSoftDelete):
-    """
-
-    Represents the contact details of a store in the database.
+    """Represents the contact details of a store in the database.
 
     This class defines the structure and relationships for the 'store_contact_details' table.
 
@@ -144,14 +145,17 @@ class StoreContactDetail(BaseModalWithSoftDelete):
         is_phone_number_verified (bool): Indicates if the phone number is verified.
         alternate_email (Optional[str]): The alternate email address of the store.
         is_alternate_email_verified (bool): Indicates if the alternate email is verified.
-        alternate_phone_country_code (Optional[str]): The country code of the alternate phone number.
+        alternate_phone_country_code (Optional[str]): The country code of the
+        alternate phone number.
         alternate_phone_number (Optional[str]): The alternate phone number of the store.
-        is_alternate_phone_number_verified (bool): Indicates if the alternate phone number is verified.
+        is_alternate_phone_number_verified (bool): Indicates if the alternate phone number
+        is verified.
         social_links (Optional[JSONB]): The social media links of the store.
 
     Inherits from:
             BaseModalWithSoftDelete: Provides common functionality for all models.
     """
+
     __tablename__ = "store_contact_details"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -174,8 +178,7 @@ class StoreContactDetail(BaseModalWithSoftDelete):
 
 # list of enum class
 class StoreStatusEnum(BaseEnum):
-    """
-    Enumeration of possible store statuses.
+    """Enumeration of possible store statuses.
 
     Attributes:
         CREATING (int): Store is in the process of being created.
@@ -189,6 +192,7 @@ class StoreStatusEnum(BaseEnum):
         MAINTENANCE (int): Store is undergoing maintenance.
         TEMPORARILY_CLOSED (int): Store is temporarily closed.
     """
+
     CREATING = 10
     ACTIVE = 20
     INACTIVE = 30
@@ -202,8 +206,7 @@ class StoreStatusEnum(BaseEnum):
 
 
 class StoreServiceEnum(BaseEnum):
-    """
-    Enumeration of primary services offered by stores.
+    """Enumeration of primary services offered by stores.
 
     Attributes:
         ALL (int): All services are offered.
@@ -212,6 +215,7 @@ class StoreServiceEnum(BaseEnum):
         SELLING_RETAIL (int): Retail selling services are offered.
         CUT_PIECE_CENTER (int): Cut piece center services are offered.
     """
+
     ALL = 10
     LAUNDRY = 20
     SELLING_WHOLESALE = 30
@@ -220,8 +224,7 @@ class StoreServiceEnum(BaseEnum):
 
 
 class StoreSubServiceEnum(BaseEnum):
-    """
-    Enumeration of sub-services offered by stores.
+    """Enumeration of sub-services offered by stores.
 
     Attributes:
         WASHING (int): Washing service.
@@ -247,6 +250,7 @@ class StoreSubServiceEnum(BaseEnum):
         FABRIC_SORTING (int): Fabric sorting service.
         CUSTOM_LABELING (int): Custom labeling service.
     """
+
     WASHING = 10
     IRON = 20
     DRY_CLEANING = 30

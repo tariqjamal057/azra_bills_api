@@ -12,8 +12,7 @@ if TYPE_CHECKING:
 
 
 class City(BaseModal, DeleteMixin):
-    """
-    Represents a city in the database.
+    """Represents a city in the database.
 
     This class defines the structure and relationships for the 'cities' table.
 
@@ -29,7 +28,7 @@ class City(BaseModal, DeleteMixin):
         BaseModal: Provides common functionality for all models.
         DeleteMixin: Adds soft delete capability to the model.
     """
-    
+
     __tablename__ = "cities"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
