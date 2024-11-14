@@ -98,7 +98,7 @@ class StoreDetail(BaseModalWithSoftDelete):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
 
-    store_id: Mapped[str] = mapped_column(str, ForeignKey("stores.id"))
+    store_id: Mapped[str] = mapped_column(String, ForeignKey("stores.id"))
     store: Mapped["Store"] = relationship(back_populates="store_detail")
     country_id: Mapped[int] = mapped_column(Integer, ForeignKey("countries.id"))
     country: Mapped["Country"] = relationship()
@@ -160,7 +160,7 @@ class StoreContactDetail(BaseModalWithSoftDelete):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
 
-    store_detail_id: Mapped[str] = mapped_column(String, ForeignKey("store_details.id"))
+    store_detail_id: Mapped[int] = mapped_column(Integer, ForeignKey("store_details.id"))
     store_detail: Mapped["StoreDetail"] = relationship(back_populates="contact_details")
 
     email: Mapped[str] = mapped_column(String(length=100))
