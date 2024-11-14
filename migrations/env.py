@@ -8,6 +8,7 @@ configured by connecting to the database engine and targeting the metadata from 
 """
 
 import asyncio
+import sys
 from logging.config import fileConfig
 
 from alembic import context
@@ -17,6 +18,10 @@ from sqlalchemy.engine import Connection
 from azra_bills_api.admin.models import *  # noqa: F403
 from config.settings import settings
 from core.database import Base, async_engine
+
+# Add configuration to use windows compatible event loop
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
