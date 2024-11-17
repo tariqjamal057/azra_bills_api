@@ -78,6 +78,8 @@ class StoreDetail(BaseModalWithSoftDelete):
         slogan (Optional[str]): The slogan of the store.
         address (Optional[str]): The address of the store.
         postal_code (Optional[str]): The postal code of the store.
+        logo (str): The logo of the store.
+        cover_image (ste): The cover image of the store.
         gst (Optional[str]): The GST number of the store.
         tin (Optional[str]): The TIN number of the store.
         services (List[int]): The list of services provided by the store.
@@ -113,6 +115,8 @@ class StoreDetail(BaseModalWithSoftDelete):
     slogan: Mapped[Optional[str]] = mapped_column(String(length=100))
     address: Mapped[str] = mapped_column(String(length=255))
     postal_code: Mapped[str] = mapped_column(String(length=10))
+    logo: Mapped[str] = mapped_column(String)
+    cover_iamge: Mapped[str] = mapped_column(String)
     gst: Mapped[Optional[str]] = mapped_column(String(20))
     tin: Mapped[Optional[str]] = mapped_column(String(20))
     services: Mapped[List[int]] = mapped_column(ARRAY(Integer))
