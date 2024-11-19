@@ -23,14 +23,14 @@ def get_logger(
     """
     logger = logging.Logger(name)
     logger.setLevel(level)
-    logger.addHandler(
-        logging.StreamHandler().setFormatter(
-            logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
-        )
-    )
+    console = logging.StreamHandler()
+    formatter = logging.Formatter("%(asctime)s [%(levelname)s] %(message)s")
+    console.setFormatter(formatter)
+    logger.addHandler(console)
 
     if log_id:
         logger = logging.LoggerAdapter(logger, {"log_id", log_id})
+
     return logger
 
 
