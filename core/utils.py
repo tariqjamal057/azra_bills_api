@@ -5,6 +5,10 @@ import time
 import uuid
 from enum import Enum
 
+from fastapi import Query
+from fastapi_pagination import Params
+from pydantic import field_validator
+
 
 def uuid_generator():
     return str(uuid.uuid4())
@@ -44,7 +48,7 @@ class BaseEnum(Enum):
         return [{"id": member.value, "name": member.name} for member in cls]
 
     @classmethod
-    def all_ids(cls):
+    def values(cls):
         """Returns a list of all enum member values.
 
         Returns:
@@ -53,7 +57,7 @@ class BaseEnum(Enum):
         return [member.value for member in cls]
 
     @classmethod
-    def all_names(cls):
+    def names(cls):
         """Returns a list of all enum member names.
 
         Returns:
@@ -122,3 +126,31 @@ def generate_password(n: int = 8) -> str:
     random_string += [random.choice(all_chars) for _ in range(n - 4)]
     random.shuffle(random_string)
     return "".join(random_string)
+
+
+class CustomParams(Params):
+    """Custom parameters class extending Params.
+
+    This class defines custom query parameters for pagination and filtering.
+
+    Attributes:
+        size (int): The number of items to return per page.
+            Defaults to 10.
+            Minimum value: 1
+            Maximum value: 100
+    """
+
+    size: int = Query(default=10, ge=1, le=100, description="Page size")
+
+
+class PhoneNumberValidator:
+    """Validator for phone numbers."""
+
+    @field_validator("phone_number")
+    @classmethod
+    def validate_phone_number(cls, value):
+        if not value.isdigit():
+            raise ValueError("Phone number must contain only digits")
+        if len(value) != 10:
+            raise ValueError("Phone number must be exactly 10 digits long")
+        return value

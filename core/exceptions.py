@@ -16,7 +16,7 @@ class HTTPNotFoundException(HTTPException):
     Extends HTTPException to return a 404 status code.
     """
 
-    def _init_(self, detail: Any = None, headers: Optional[Dict[str, str]] = None) -> None:
+    def __init__(self, detail: Any = None, headers: Optional[Dict[str, str]] = None) -> None:
         """Initialize the HTTPNotFoundException.
 
         Args:
@@ -24,7 +24,7 @@ class HTTPNotFoundException(HTTPException):
             headers: Optional dictionary of headers to include in the response.
         """
         status_code = status.HTTP_404_NOT_FOUND
-        super()._init_(status_code, detail, headers)
+        super().__init__(status_code, detail, headers)
 
 
 class InternalServerErrorException(HTTPException):
@@ -33,7 +33,7 @@ class InternalServerErrorException(HTTPException):
     Extends HTTPException to return a 500 status code.
     """
 
-    def _init_(self, detail: Any = None, headers: Optional[Dict[str, str]] = None) -> None:
+    def __init__(self, detail: Any = None, headers: Optional[Dict[str, str]] = None) -> None:
         """Initialize the InternalServerErrorException.
 
         Args:
@@ -41,7 +41,7 @@ class InternalServerErrorException(HTTPException):
             headers: Optional dictionary of headers to include in the response.
         """
         status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
-        super()._init_(status_code, detail, headers)
+        super().__init__(status_code, detail, headers)
 
 
 class FileNotFoundException(HTTPException):
@@ -50,7 +50,7 @@ class FileNotFoundException(HTTPException):
     Extends HTTPException to return a 404 status code.
     """
 
-    def _init_(self, detail: Any = None, headers: Optional[Dict[str, str]] = None) -> None:
+    def __init__(self, detail: Any = None, headers: Optional[Dict[str, str]] = None) -> None:
         """Initialize the FileNotFoundException.
 
         Args:
@@ -58,7 +58,7 @@ class FileNotFoundException(HTTPException):
             headers: Optional dictionary of headers to include in the response.
         """
         status_code = status.HTTP_404_NOT_FOUND
-        super()._init_(status_code, detail, headers)
+        super().__init__(status_code, detail, headers)
 
 
 class ForbiddenError(HTTPException):
@@ -67,7 +67,7 @@ class ForbiddenError(HTTPException):
     Extends HTTPException to return a 403 status code.
     """
 
-    def _init_(self, detail: Any = None, headers: Optional[Dict[str, str]] = None) -> None:
+    def __init__(self, detail: Any = None, headers: Optional[Dict[str, str]] = None) -> None:
         """Initialize the ForbiddenError.
 
         Args:
@@ -75,7 +75,7 @@ class ForbiddenError(HTTPException):
             headers: Optional dictionary of headers to include in the response.
         """
         status_code = status.HTTP_403_FORBIDDEN
-        super()._init_(status_code, detail, headers)
+        super().__init__(status_code, detail, headers)
 
 
 class HTTPForbiddenError(JSONResponse):
@@ -88,9 +88,9 @@ class HTTPForbiddenError(JSONResponse):
         headers: Optional dictionary of headers to include in the response.
     """
 
-    def _init_(self, detail: Any = None, headers: Dict[str, str] | None = None) -> None:
+    def __init__(self, detail: Any = None, headers: Dict[str, str] | None = None) -> None:
         status_code = status.HTTP_403_FORBIDDEN
-        super()._init_(
+        super().__init__(
             status_code=status_code,
             content={
                 "detail": detail,
@@ -109,9 +109,9 @@ class BadRequestError(JSONResponse):
         headers: Optional dictionary of headers to include in the response.
     """
 
-    def _init_(self, detail: Any = None, headers: Optional[Dict[str, str]] = None) -> None:
+    def __init__(self, detail: Any = None, headers: Optional[Dict[str, str]] = None) -> None:
         status_code = status.HTTP_400_BAD_REQUEST
-        super()._init_(
+        super().__init__(
             status_code=status_code,
             content={
                 "detail": detail,
@@ -126,7 +126,7 @@ class CustomPydanticValidationError(JSONResponse):
     Formats validation errors in Pydantic error response style.
     """
 
-    def _init_(
+    def __init__(
         self,
         error_details: List[dict],
     ) -> None:
@@ -151,7 +151,7 @@ class CustomPydanticValidationError(JSONResponse):
         pydantic_error = ValidationError.from_exception_data(
             title="integrity_error", line_errors=validation_errors
         )
-        super()._init_(
+        super().__init__(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             content={"detail": pydantic_error.errors()},
         )
@@ -163,7 +163,7 @@ class CustomPydanticMissingError(JSONResponse):
     Formats missing field errors in Pydantic error response style.
     """
 
-    def _init_(
+    def __init__(
         self,
         error_details: List[dict],
     ) -> None:
@@ -185,13 +185,13 @@ class CustomPydanticMissingError(JSONResponse):
         pydantic_error = ValidationError.from_exception_data(
             title="missing_error", line_errors=missing_errors
         )
-        super()._init_(
+        super().__init__(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             content={"detail": pydantic_error.errors()},
         )
 
 
-class HTTPNotFoundErro(JSONResponse):
+class HTTPNotFoundError(JSONResponse):
     """Exception return when a requested resource is not found.
 
     Extends JSONResponse to return a 404 Not Found HTTP response.
@@ -201,9 +201,9 @@ class HTTPNotFoundErro(JSONResponse):
         headers: Optional dictionary of headers to include in the response.
     """
 
-    def _init_(self, detail: Any = None, headers: Optional[Dict[str, str]] = None) -> None:
+    def __init__(self, detail: Any = None, headers: Optional[Dict[str, str]] = None) -> None:
         status_code = status.HTTP_404_NOT_FOUND
-        super()._init_(
+        super().__init__(
             status_code=status_code,
             content={
                 "detail": detail,
