@@ -1,12 +1,10 @@
 """This module contains set of enumeration that should used all over package."""
 
-from enum import Enum
-
-from sqlalchemy import asc, desc
+from core.utils import BaseEnum
 
 
-class OrderByType(Enum):
+class OrderByType(BaseEnum):
     """Enumeration for the order_by type."""
 
-    ASC = asc
-    DESC = desc
+    ASC = "asc"
+    DESC = "desc"

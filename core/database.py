@@ -15,24 +15,17 @@ Key Components:
 """
 
 from contextlib import asynccontextmanager
-from typing import Optional
+from typing import AsyncGenerator
 
 from sqlalchemy import MetaData, text
-from sqlalchemy.ext.asyncio import AsyncSession as SqlAlchemyAsyncSession
-from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 from config.settings import settings
-from core.constant import DB_PUBLIC_SCHEMA
 
 async_engine = create_async_engine(settings.DATABASE_URL)
 
-AsyncSession = sessionmaker(
-    bind=async_engine,
-    class_=SqlAlchemyAsyncSession,
-    autocommit=False,
-    autoflush=False,
-)
+async_session = sessionmaker(async_engine, class_=AsyncSession, expire_on_commit=False)
 
 naming_convention = {
     "ix": "ix_%(column_0_label)s",
@@ -44,30 +37,31 @@ naming_convention = {
 Base = declarative_base(metadata=MetaData(naming_convention=naming_convention))
 
 
-async def set_tenant_schema(session: SqlAlchemyAsyncSession, *, schema: str):
+async def set_tenant_schema(session: AsyncSession, *, schema: str):
     """Asynchronously checks if a given schema exists in the database session.
 
     Args:
-        session (SqlAlchemyAsyncSession): The database session.
+        session (AsyncSession): The database session.
         schema (str): The name of the schema to check.
     """
     await session.execute(text(f"SET search_path TO {schema}"))
 
 
 @asynccontextmanager
-async def get_db_context(schema: Optional[str] = DB_PUBLIC_SCHEMA):
-    """Get an SQLAlchemy database session.
+async def get_db_context() -> AsyncGenerator[AsyncSession, None]:
+    """Asynchronous context manager for database session handling.
 
-    Creates a new session using the AsyncSession class provided by database.py.
-    The session is closed after usage using a try/finally block.
-    Args:
-        schema (str): Tenant schema to use for the session. Default is DB_PUBLIC_SCHEMA.
+    Yields:
+        AsyncSession: An asynchronous database session.
 
-    Returns:
-        Session: The SQLAlchemy database session.
+    Raises:
+        Exception: Any exception that occurs during database operations.
+
+    Notes:
+        - The session is automatically closed when exiting the context.
+        - If an exception occurs, the session is rolled back before being closed.
     """
-    session = AsyncSession()
-    await set_tenant_schema(session, schema)
+    session = async_session()
     try:
         yield session
     except Exception:
