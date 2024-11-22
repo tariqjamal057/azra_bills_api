@@ -1,3 +1,22 @@
+"""SAAS Admin Management Module.
+
+This module provides API endpoints for managing SAAS (Software as a Service) Administrators.
+It includes functionality for listing, creating, retrieving, updating, and deleting SAAS
+Admin accounts.
+
+The module defines a FastAPI router with the following endpoints:
+- GET /saas-admins: List all SAAS Admins with pagination and sorting
+- POST /saas-admins: Create a new SAAS Admin
+- GET /saas-admins/{saas_admin_id}: Retrieve details of a specific SAAS Admin
+- PUT /saas-admins/{saas_admin_id}: Update an existing SAAS Admin
+- DELETE /saas-admins/{saas_admin_id}: Delete a SAAS Admin
+
+It uses SQLAlchemy for database operations and Pydantic for request/response modeling.
+The module also includes comprehensive error handling and logging.
+"""
+
+# Rest of the file content follows...
+
 from typing import Literal
 
 from fastapi import APIRouter, Depends, Request, status
