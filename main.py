@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 
+from azra_bills_api.admin.routes import admin_app
+
 app = FastAPI(
     title="AZRA Bills API",
     summary="A SaaS laundry management system for single and multi-store businesses, "
@@ -21,3 +23,6 @@ app = FastAPI(
 @app.get("/health-check")
 async def health_check():
     return {"status": True}
+
+
+app.mount("/admin", admin_app)
