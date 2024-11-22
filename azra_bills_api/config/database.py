@@ -17,10 +17,11 @@ Key Components:
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
-from config.settings import settings
 from sqlalchemy import MetaData, text
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
+
+from azra_bills_api.config.settings import settings
 
 async_engine = create_async_engine(settings.DATABASE_URL)
 
