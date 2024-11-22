@@ -569,6 +569,7 @@ async def create(
             ]
         )
     except Exception as exception:
+        await async_session.rollback()
         logger.exception(
             "Error occurred while creating the sass admin!\n%s\nRequest Data:\n%s",
             exception,
@@ -732,6 +733,7 @@ async def update(
             ]
         )
     except Exception as exception:
+        await async_session.rollback()
         logger.exception(
             "Error occurred while updating the saas admin!\n%s\nRequest Data:\n%s",
             exception,
@@ -785,6 +787,7 @@ async def delete(
             f"{username} SAAS Admin has been deleted successfully", status_code=status.HTTP_200_OK
         )
     except Exception as exception:
+        await async_session.rollback()
         logger.exception("Error Occurred while deleting saas admin: %s", exception)
         raise InternalServerErrorException(
             "Unable to delete SAAS Admin, please try again later."
