@@ -41,6 +41,7 @@ class SAASAdmin(BaseModal):
     first_name: Mapped[str] = mapped_column(String(50))
     last_name: Mapped[str] = mapped_column(String(50))
     email: Mapped[str] = mapped_column(String(100))
+    username: Mapped[str] = mapped_column(String(50))
     phone_number: Mapped[str] = mapped_column(String(10))
     password: Mapped[str] = mapped_column(String(50))
     otp: Mapped[Optional[str]] = mapped_column(String(255))
