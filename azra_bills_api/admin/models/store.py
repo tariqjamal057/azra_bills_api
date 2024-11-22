@@ -7,8 +7,8 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql import expression
 
+from azra_bills_api.core.utils import BaseEnum, ULIDGenerator
 from azra_bills_api.models import BaseModalWithSoftDelete
-from core.utils import BaseEnum, ULIDGenerator
 
 if TYPE_CHECKING:
     from azra_bills_api.admin.models import City, Country, Holiday, SAASAdmin, State

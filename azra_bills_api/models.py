@@ -2,8 +2,8 @@ from sqlalchemy import DateTime, func
 from sqlalchemy.ext.asyncio import AsyncAttrs, AsyncSession
 from sqlalchemy.orm import mapped_column
 
+from azra_bills_api.config.database import Base
 from azra_bills_api.mixins import SoftDeleteMixin
-from config.database import Base
 
 
 class BaseModal(Base, AsyncAttrs):

@@ -4,7 +4,7 @@ from typing import Optional
 
 from pydantic import BaseModel, EmailStr, Field
 
-from core.utils import PhoneNumberValidator
+from azra_bills_api.core.utils import PhoneNumberValidator
 
 
 class CreateSAASAdmin(BaseModel, PhoneNumberValidator):

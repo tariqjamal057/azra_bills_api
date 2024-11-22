@@ -16,8 +16,8 @@ from sqlalchemy import text
 from sqlalchemy.engine import Connection
 
 from azra_bills_api.admin.models import *  # noqa: F403
-from config.database import Base, async_engine
-from config.settings import settings
+from azra_bills_api.config.database import Base, async_engine
+from azra_bills_api.config.settings import settings
 
 # Add configuration to use windows compatible event loop
 if sys.platform == "win32":

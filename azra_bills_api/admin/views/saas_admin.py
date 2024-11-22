@@ -16,14 +16,14 @@ from azra_bills_api.admin.schemas.saas_admin import (
     ListSaaSAdmin,
     UpdateSAASAdmin,
 )
-from config.logger.app import logger
-from core.dependencies import get_db_session, paginator_query_params
-from core.exceptions import (
+from azra_bills_api.config.logger.app import logger
+from azra_bills_api.core.dependencies import get_db_session, paginator_query_params
+from azra_bills_api.core.exceptions import (
     CustomPydanticValidationError,
     HTTPNotFoundError,
     InternalServerErrorException,
 )
-from core.utils import CustomParams, generate_password
+from azra_bills_api.core.utils import CustomParams, generate_password
 
 saas_admin_router = APIRouter(
     prefix="/saas-admins",

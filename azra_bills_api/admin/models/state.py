@@ -5,8 +5,8 @@ from typing import TYPE_CHECKING, List
 from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from azra_bills_api.core.utils import BaseEnum
 from azra_bills_api.models import BaseModal, DeleteMixin
-from core.utils import BaseEnum
 
 if TYPE_CHECKING:
     from azra_bills_api.admin.models import City, Country

@@ -5,8 +5,8 @@ from typing import TYPE_CHECKING, Optional
 from sqlalchemy import Date, ForeignKey, Integer, String, Time
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from azra_bills_api.core.utils import BaseEnum
 from azra_bills_api.models import BaseModalWithSoftDelete
-from core.utils import BaseEnum
 
 if TYPE_CHECKING:
     from azra_bills_api.admin.models import Store
