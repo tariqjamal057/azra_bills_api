@@ -2,12 +2,11 @@
 
 from typing import AsyncGenerator, Literal
 
+from config.database import get_db_context
+from core.enums import OrderByType
 from fastapi import Query
 from sqlalchemy import asc, desc
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from config.database import get_db_context
-from core.enums import OrderByType
 
 
 async def paginator_query_params(
