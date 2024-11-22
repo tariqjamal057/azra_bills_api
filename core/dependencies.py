@@ -6,7 +6,7 @@ from fastapi import Query
 from sqlalchemy import asc, desc
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from core.database import get_db_context
+from config.database import get_db_context
 from core.enums import OrderByType
 
 

@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncAttrs, AsyncSession
 from sqlalchemy.orm import mapped_column
 
 from azra_bills_api.mixins import SoftDeleteMixin
-from core.database import Base
+from config.database import Base
 
 
 class BaseModal(Base, AsyncAttrs):
