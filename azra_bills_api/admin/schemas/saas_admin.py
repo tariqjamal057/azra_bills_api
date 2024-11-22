@@ -1,13 +1,11 @@
 """This module contains the saas admin module schemas."""
 
-from typing import Optional
-
 from pydantic import BaseModel, EmailStr, Field
 
 from azra_bills_api.core.utils import PhoneNumberValidator
 
 
-class CreateSAASAdmin(BaseModel, PhoneNumberValidator):
+class SAASAdminRequest(BaseModel, PhoneNumberValidator):
     """Schema for creating a new SaaS admin.
 
     Attributes:
@@ -23,31 +21,6 @@ class CreateSAASAdmin(BaseModel, PhoneNumberValidator):
     last_name: str = Field(min_length=3, max_length=50, description="The last name of the admin")
     email: EmailStr = Field(max_length=100, description="The email address of the admin")
     phone_number: str = Field(description="The phone number of the admin")
-
-
-class UpdateSAASAdmin(BaseModel, PhoneNumberValidator):
-    """Schema for creating a new SaaS admin.
-
-    Attributes:
-        username (str): The username of the admin. Must be between 3 and 50 characters long.
-        first_name (Optional[str]): The first name of the admin. Must be between 3 and 50
-        characters long.
-        last_name (Optional[str]): The last name of the admin. Must be between 3 and 50
-        characters long.
-        email (Optional[str]): The email address of the admin. Must match the EMAIL_PATTERN.
-        phone_number (Optional[str]): The phone number of the admin. Must match
-        the PHONE_NUMBER_PATTERN.
-    """
-
-    username: str = Field(min_length=3, max_length=50, description="The username of the admin")
-    first_name: Optional[str] = Field(
-        min_length=3, max_length=50, description="The first name of the admin"
-    )
-    last_name: Optional[str] = Field(
-        min_length=3, max_length=50, description="The last name of the admin"
-    )
-    email: Optional[EmailStr] = Field(max_length=100, description="The email address of the admin")
-    phone_number: Optional[str] = Field(description="The phone number of the admin")
 
 
 class ListSaaSAdmin(BaseModel):

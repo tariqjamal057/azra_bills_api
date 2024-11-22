@@ -11,11 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import load_only
 
 from azra_bills_api.admin.models.saas_admin import SAASAdmin
-from azra_bills_api.admin.schemas.saas_admin import (
-    CreateSAASAdmin,
-    ListSaaSAdmin,
-    UpdateSAASAdmin,
-)
+from azra_bills_api.admin.schemas.saas_admin import ListSaaSAdmin, SAASAdminRequest
 from azra_bills_api.config.logger.app import logger
 from azra_bills_api.core.dependencies import get_db_session, paginator_query_params
 from azra_bills_api.core.exceptions import (
@@ -507,7 +503,7 @@ async def list(
 )
 async def create(
     request: Request,
-    saas_admin_request: CreateSAASAdmin,
+    saas_admin_request: SAASAdminRequest,
     async_session: AsyncSession = Depends(get_db_session),
 ):
     """Create a new SAAS Admin.
@@ -518,7 +514,7 @@ async def create(
 
     Args:
         request (Request): The incoming request object.
-        saas_admin_request (CreateSAASAdmin): The request model containing SAAS Admin details.
+        saas_admin_request (   SAASAdminRequest): The request model containing SAAS Admin details.
         async_session (AsyncSession): The database session for async operations.
 
     Returns:
@@ -651,7 +647,7 @@ async def get(
 async def update(
     request: Request,
     saas_admin_id: int,
-    saas_admin_request: UpdateSAASAdmin,
+    saas_admin_request: SAASAdminRequest,
     async_session: AsyncSession = Depends(get_db_session),
 ):
     """Update a SAAS Admin's information.
@@ -663,7 +659,7 @@ async def update(
     Args:
         request (Request): The incoming request object.
         saas_admin_id (int): The ID of the SAAS Admin to be updated.
-        saas_admin_request (UpdateSAASAdmin): The request object containing the
+        saas_admin_request (   SAASAdminRequest): The request object containing the
         updated SAAS Admin information.
         async_session (AsyncSession): The database session for executing database operations.
 
