@@ -52,7 +52,9 @@ class Store(BaseModalWithSoftDelete):
     status: Mapped[int] = mapped_column(Integer)
 
     store_holidays: Mapped[List["Holiday"]] = relationship(back_populates="store")
-    store_detail: Mapped["StoreDetail"] = relationship(back_populates="store")
+    store_detail: Mapped["StoreDetail"] = relationship(
+        back_populates="store", foreign_keys="[StoreDetail.store_id]"
+    )
 
 
 class StoreDetail(BaseModalWithSoftDelete):
@@ -79,7 +81,7 @@ class StoreDetail(BaseModalWithSoftDelete):
         address (Optional[str]): The address of the store.
         postal_code (Optional[str]): The postal code of the store.
         logo (str): The logo of the store.
-        cover_image (ste): The cover image of the store.
+        cover_image (str): The cover image of the store.
         gst (Optional[str]): The GST number of the store.
         tin (Optional[str]): The TIN number of the store.
         services (List[int]): The list of services provided by the store.
@@ -101,7 +103,7 @@ class StoreDetail(BaseModalWithSoftDelete):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
 
     store_id: Mapped[str] = mapped_column(String, ForeignKey("stores.id"))
-    store: Mapped["Store"] = relationship(back_populates="store_detail")
+    store: Mapped["Store"] = relationship(back_populates="store_detail", foreign_keys=[store_id])
     country_id: Mapped[int] = mapped_column(Integer, ForeignKey("countries.id"))
     country: Mapped["Country"] = relationship()
     state_id: Mapped[int] = mapped_column(Integer, ForeignKey("states.id"))
@@ -109,7 +111,7 @@ class StoreDetail(BaseModalWithSoftDelete):
     city_id: Mapped[int] = mapped_column(Integer, ForeignKey("cities.id"))
     city: Mapped["City"] = relationship()
     parent_store_id: Mapped[Optional[str]] = mapped_column(String, ForeignKey("stores.id"))
-    parent_store: Mapped["Store"] = relationship()
+    parent_store: Mapped["Store"] = relationship(foreign_keys=[parent_store_id])
 
     description: Mapped[Optional[str]] = mapped_column(Text)
     slogan: Mapped[Optional[str]] = mapped_column(String(length=100))
