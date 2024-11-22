@@ -5,13 +5,13 @@ from typing import TYPE_CHECKING
 from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from azra_bills_api.models import BaseModal, DeleteMixin
+from azra_bills_api.models import BaseModalWithSoftDelete
 
 if TYPE_CHECKING:
     from azra_bills_api.admin.models import State
 
 
-class City(BaseModal, DeleteMixin):
+class City(BaseModalWithSoftDelete):
     """Represents a city in the database.
 
     This class defines the structure and relationships for the 'cities' table.
@@ -25,8 +25,7 @@ class City(BaseModal, DeleteMixin):
         name (str): The name of the city.
 
     Inherits from:
-        BaseModal: Provides common functionality for all models.
-        DeleteMixin: Adds soft delete capability to the model.
+        BaseModalWithSoftDelete: Adds soft delete capability to the model.
     """
 
     __tablename__ = "cities"

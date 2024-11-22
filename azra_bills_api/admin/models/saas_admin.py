@@ -5,13 +5,13 @@ from typing import TYPE_CHECKING, Optional
 from sqlalchemy import Boolean, DateTime, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from azra_bills_api.models import BaseModal
+from azra_bills_api.models import BaseModalWithSoftDelete
 
 if TYPE_CHECKING:
     from azra_bills_api.admin.models import Store
 
 
-class SAASAdmin(BaseModal):
+class SAASAdmin(BaseModalWithSoftDelete):
     """Represents a SAAS admin in the database.
 
     This class defines the structure and relationships for the 'saas_admins' table.
@@ -31,7 +31,7 @@ class SAASAdmin(BaseModal):
         stores (List[Store]): The relationship to the Store model.
 
     Inherits from:
-        BaseModal: Provides common functionality for all models.
+        BaseModalWithSoftDelete: Provides common functionality for all models.
     """
 
     __tablename__ = "saas_admins"

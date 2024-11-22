@@ -6,13 +6,13 @@ from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from azra_bills_api.core.utils import BaseEnum
-from azra_bills_api.models import BaseModal, DeleteMixin
+from azra_bills_api.models import BaseModalWithSoftDelete
 
 if TYPE_CHECKING:
     from azra_bills_api.admin.models import City, Country
 
 
-class State(BaseModal, DeleteMixin):
+class State(BaseModalWithSoftDelete):
     """Represents a state in the database.
 
     This class defines the structure and relationships for the 'states' table.
@@ -30,8 +30,7 @@ class State(BaseModal, DeleteMixin):
     cities (List[City]): The relationship to the City model.
 
     Inherits from:
-        BaseModal: Provides common functionality for all models.
-        DeleteMixin: Adds soft delete capability to the model.
+        BaseModalWithSoftDelete: Adds soft delete capability to the model.
     """
 
     __tablename__ = "states"
