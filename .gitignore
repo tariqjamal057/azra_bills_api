@@ -8,3 +8,6 @@
 # cache files
 __pycache__
 .ruff-cache
+
+#editor files
+.vscode
