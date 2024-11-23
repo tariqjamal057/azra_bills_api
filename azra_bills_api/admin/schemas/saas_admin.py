@@ -1,6 +1,6 @@
 """This module contains the saas admin module schemas."""
 
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import AwareDatetime, BaseModel, EmailStr, Field
 
 from azra_bills_api.core.utils import PhoneNumberValidator
 
@@ -41,3 +41,4 @@ class ListSaaSAdmin(BaseModel):
     email: str = Field(description="The email address of the admin")
     phone_number: str = Field(description="The phone number of the admin")
     is_active: bool = Field(description="The active status of the admin account")
+    created_at: AwareDatetime = Field(description="The SAAS Admin created at datetime")

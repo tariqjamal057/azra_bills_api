@@ -61,6 +61,7 @@ RESPONSES = {
                                 "email": "user@example.com",
                                 "phone_number": "1234567890",
                                 "is_active": True,
+                                "created_at": "2024-11-19T16:14:12.815918+05:30",
                             }
                         ],
                         "total": 1,
@@ -274,6 +275,7 @@ RESPONSES = {
                         "email": "john.doe@example.com",
                         "phone_number": "1234567890",
                         "is_active": True,
+                        "created_at": "2024-11-19T16:14:12.815918+05:30",
                     }
                 }
             },
@@ -490,6 +492,7 @@ async def list(
                     SAASAdmin.email,
                     SAASAdmin.phone_number,
                     SAASAdmin.is_active,
+                    SAASAdmin.created_at,
                 )
             )
             .order_by(paginator["order_by"](sort_by))
@@ -607,13 +610,7 @@ async def get(
         injected by FastAPI's dependency system.
 
     Returns:
-        ListSaaSAdmin: An object containing the details of the requested SAAS Admin, including:
-            - id (int): The unique identifier of the SAAS Admin.
-            - first_name (str): The first name of the SAAS Admin.
-            - last_name (str): The last name of the SAAS Admin.
-            - email (str): The email address of the SAAS Admin.
-            - phone_number (str): The phone number of the SAAS Admin.
-            - is_active (bool): The active status of the SAAS Admin.
+        ListSaaSAdmin: An object containing the details of the requested SAAS Admin
 
     Raises:
         HTTPNotFoundError: If no SAAS Admin is found with the provided ID.
@@ -622,8 +619,7 @@ async def get(
 
     Note:
         This function uses SQLAlchemy's select statement with load_only to optimize
-        the database query
-        by fetching only the required fields.
+        the database query by fetching only the required fields.
     """
     try:
         saas_admin = await async_session.scalar(
@@ -636,6 +632,7 @@ async def get(
                     SAASAdmin.email,
                     SAASAdmin.phone_number,
                     SAASAdmin.is_active,
+                    SAASAdmin.created_at,
                 )
             )
             .where(SAASAdmin.id == saas_admin_id)
