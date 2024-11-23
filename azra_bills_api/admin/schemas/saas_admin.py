@@ -33,6 +33,7 @@ class ListSaaSAdmin(BaseModel):
         email (str): The email address of the admin.
         phone_number (str): The phone number of the admin.
         is_active (bool): The active status of the admin account.
+        created_at (AwareDatetime): The created_at datetime of the admin.
     """
 
     id: int = Field(description="The unique identifier of the admin")
