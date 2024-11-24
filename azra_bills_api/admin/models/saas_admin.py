@@ -44,7 +44,7 @@ class SAASAdmin(BaseModalWithSoftDelete):
     username: Mapped[str] = mapped_column(String(50))
     phone_number: Mapped[str] = mapped_column(String(10))
     password: Mapped[str] = mapped_column(String(50))
-    otp: Mapped[Optional[str]] = mapped_column(String(255))
+    otp: Mapped[Optional[str]] = mapped_column(String(6))
     opt_expire_at: Mapped[Optional[DateTime]] = mapped_column(DateTime)
     is_active: Mapped[bool] = mapped_column(Boolean, default=False)
 
