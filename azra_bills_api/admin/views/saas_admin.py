@@ -554,9 +554,7 @@ async def create(
         )
         if saas_admin:
             raise IntegrityError(statement=None, params=None, orig=Exception())
-
-        instance = SAASAdmin(**saas_admin_request.model_dump())
-        instance.password = generate_password()
+        instance = SAASAdmin(**saas_admin_request.model_dump() | {"password": generate_password()})
         async_session.add(instance)
         await async_session.commit()
         return JSONResponse(

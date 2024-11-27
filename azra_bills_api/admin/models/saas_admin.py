@@ -5,13 +5,14 @@ from typing import TYPE_CHECKING, Optional
 from sqlalchemy import Boolean, DateTime, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from azra_bills_api.core.security import AuthenticationMixin
 from azra_bills_api.models import BaseModalWithSoftDelete
 
 if TYPE_CHECKING:
     from azra_bills_api.admin.models import Store
 
 
-class SAASAdmin(BaseModalWithSoftDelete):
+class SAASAdmin(BaseModalWithSoftDelete, AuthenticationMixin):
     """Represents a SAAS admin in the database.
 
     This class defines the structure and relationships for the 'saas_admins' table.
@@ -43,9 +44,17 @@ class SAASAdmin(BaseModalWithSoftDelete):
     email: Mapped[str] = mapped_column(String(100))
     username: Mapped[str] = mapped_column(String(50))
     phone_number: Mapped[str] = mapped_column(String(10))
-    password: Mapped[str] = mapped_column(String(50))
+    hash_password: Mapped[str] = mapped_column("password", String(255))
     otp: Mapped[Optional[str]] = mapped_column(String(6))
     opt_expire_at: Mapped[Optional[DateTime]] = mapped_column(DateTime)
     is_active: Mapped[bool] = mapped_column(Boolean, default=False)
 
     stores: Mapped[list["Store"]] = relationship(back_populates="created_by")
+
+    @property
+    def password(self):
+        return self.hash_password
+
+    @password.setter
+    def password(self, password: str):
+        self.hash_password = self.get_hash_password(password)

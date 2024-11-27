@@ -20,6 +20,8 @@ pydantic-settings = "^2.6.1"
 psycopg = "^3.2.3"
 sqlalchemy-easy-softdelete = "^0.8.3"
 fastapi-pagination = "^0.12.32"
+aiofiles = "^24.1.0"
+passlib = "^1.7.4"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -29,6 +31,8 @@ docformatter = "^1.7.5"
 djlint = "^1.35.4"
 pre-commit = "^4.0.1"
 ruff = "^0.7.2"
+faker = "^33.0.0"
+pytest-asyncio = "^0.24.0"
 
 [build-system]
 requires = ["poetry-core"]
