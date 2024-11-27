@@ -98,7 +98,7 @@ class ULIDGenerator:
         return timestamp_encoded + randomness_encoded
 
 
-def generate_password(n: int = 8) -> str:
+def generate_password(n: int = 12) -> str:
     """Generate a random password with specified length and character types.
 
     This function creates a password that includes at least one uppercase letter,
@@ -106,7 +106,7 @@ def generate_password(n: int = 8) -> str:
     characters are randomly chosen from all character types.
 
     Args:
-        n (int): The length of the password to generate. Defaults to 8.
+        n (int): The length of the password to generate. Defaults to 12.
 
     Returns:
         str: A randomly generated password of the specified length.
