@@ -302,7 +302,7 @@ RESPONSES = {
             "description": "SAAS Admin updated successfully",
             "content": {
                 "application/json": {
-                    "example": {"detail": "string2 SAAS Admin has been updated successfully."}
+                    "example": {"detail": "John SAAS Admin has been updated successfully."}
                 }
             },
         },
