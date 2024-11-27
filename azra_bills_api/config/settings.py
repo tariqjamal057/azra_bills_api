@@ -31,6 +31,7 @@ class Settings(BaseSettings):
     MAIL_USE_TLS: bool
     ADMIN_APP_BASE_URL: str
     TENANT_APP_BASE_URL: str
+    CELERY_BROKER_URL: str
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 

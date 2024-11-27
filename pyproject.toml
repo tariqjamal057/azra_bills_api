@@ -22,6 +22,7 @@ sqlalchemy-easy-softdelete = "^0.8.3"
 fastapi-pagination = "^0.12.32"
 aiofiles = "^24.1.0"
 passlib = "^1.7.4"
+redis = "^5.2.0"
 
 
 [tool.poetry.group.dev.dependencies]
