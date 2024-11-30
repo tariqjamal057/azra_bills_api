@@ -41,7 +41,6 @@ async def test_list_success(db_session: AsyncSession, async_client: AsyncClient,
     response = await async_client.get(
         f"{BASE_ROUTE}?sort_by=id&page=1&size=10&order_by={faker().get_order_by()}"
     )
-    print(f"{response.json()=}")
     assert response.status_code == status.HTTP_200_OK
     response_content = response.json()
     assert response_content["total"] == total_saas_admin + saas_admin_count
