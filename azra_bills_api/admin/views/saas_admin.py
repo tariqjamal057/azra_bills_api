@@ -178,6 +178,103 @@ RESPONSES = {
                                 ]
                             },
                         },
+                        "Invalid phone number length": {
+                            "summary": "Invalid phone number length",
+                            "value": {
+                                "detail": [
+                                    {
+                                        "type": "value_error",
+                                        "loc": ["body", "phone_number"],
+                                        "msg": "Value error, Phone number must be exactly "
+                                        "10 digits long",
+                                        "input": "123456789",
+                                        "ctx": {"error": {}},
+                                    }
+                                ]
+                            },
+                        },
+                        "Invalid phone number and email": {
+                            "summary": "Invalid phone number and email",
+                            "value": {
+                                "detail": [
+                                    {
+                                        "type": "value_error",
+                                        "loc": ["body", "email"],
+                                        "msg": "value is not a valid email address: An email "
+                                        "address must have an @-sign.",
+                                        "input": "userexamplecom",
+                                        "ctx": {"reason": "An email address must have an @-sign."},
+                                    },
+                                    {
+                                        "type": "value_error",
+                                        "loc": ["body", "phone_number"],
+                                        "msg": "Value error, Phone number must "
+                                        "contain only digits",
+                                        "input": "string",
+                                        "ctx": {"error": {}},
+                                    },
+                                ]
+                            },
+                        },
+                        "Minimum length validation": {
+                            "summary": "Minimum length validation",
+                            "value": {
+                                "detail": [
+                                    {
+                                        "type": "string_too_short",
+                                        "loc": ["body", "username"],
+                                        "msg": "String should have at least 3 characters",
+                                        "input": "a",
+                                        "ctx": {"min_length": 3},
+                                    },
+                                    {
+                                        "type": "string_too_short",
+                                        "loc": ["body", "first_name"],
+                                        "msg": "String should have at least 3 characters",
+                                        "input": "a",
+                                        "ctx": {"min_length": 3},
+                                    },
+                                    {
+                                        "type": "string_too_short",
+                                        "loc": ["body", "last_name"],
+                                        "msg": "String should have at least 3 characters",
+                                        "input": "a",
+                                        "ctx": {"min_length": 3},
+                                    },
+                                ]
+                            },
+                        },
+                        "Maximum length validation": {
+                            "summary": "Maximum length validation",
+                            "value": {
+                                "detail": [
+                                    {
+                                        "type": "string_too_long",
+                                        "loc": ["body", "username"],
+                                        "msg": "String should have at most 50 characters",
+                                        "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                                        "aaaaaaaaaaaaaaaaaa",
+                                        "ctx": {"max_length": 50},
+                                    },
+                                    {
+                                        "type": "string_too_long",
+                                        "loc": ["body", "first_name"],
+                                        "msg": "String should have at most 50 characters",
+                                        "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                                        "aaaaaaaaaaaaaaaaa",
+                                        "ctx": {"max_length": 50},
+                                    },
+                                    {
+                                        "type": "string_too_long",
+                                        "loc": ["body", "last_name"],
+                                        "msg": "String should have at most 50 characters",
+                                        "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                                        "aaaaaaaaaaaaaaa",
+                                        "ctx": {"max_length": 50},
+                                    },
+                                ]
+                            },
+                        },
                         "Invalid Value": {
                             "summary": "Invalid Value",
                             "value": {
@@ -330,6 +427,103 @@ RESPONSES = {
                                         },
                                         "url": "https://errors.pydantic.dev/2.9/v/value_error",
                                     }
+                                ]
+                            },
+                        },
+                        "Invalid phone number length": {
+                            "summary": "Invalid phone number length",
+                            "value": {
+                                "detail": [
+                                    {
+                                        "type": "value_error",
+                                        "loc": ["body", "phone_number"],
+                                        "msg": "Value error, Phone number must be exactly "
+                                        "10 digits long",
+                                        "input": "123456789",
+                                        "ctx": {"error": {}},
+                                    }
+                                ]
+                            },
+                        },
+                        "Invalid phone number and email": {
+                            "summary": "Invalid phone number and email",
+                            "value": {
+                                "detail": [
+                                    {
+                                        "type": "value_error",
+                                        "loc": ["body", "email"],
+                                        "msg": "value is not a valid email address: An email "
+                                        "address must have an @-sign.",
+                                        "input": "userexamplecom",
+                                        "ctx": {"reason": "An email address must have an @-sign."},
+                                    },
+                                    {
+                                        "type": "value_error",
+                                        "loc": ["body", "phone_number"],
+                                        "msg": "Value error, Phone number must contain "
+                                        "only digits",
+                                        "input": "string",
+                                        "ctx": {"error": {}},
+                                    },
+                                ]
+                            },
+                        },
+                        "Minimum length validation": {
+                            "summary": "Minimum length validation",
+                            "value": {
+                                "detail": [
+                                    {
+                                        "type": "string_too_short",
+                                        "loc": ["body", "username"],
+                                        "msg": "String should have at least 3 characters",
+                                        "input": "a",
+                                        "ctx": {"min_length": 3},
+                                    },
+                                    {
+                                        "type": "string_too_short",
+                                        "loc": ["body", "first_name"],
+                                        "msg": "String should have at least 3 characters",
+                                        "input": "a",
+                                        "ctx": {"min_length": 3},
+                                    },
+                                    {
+                                        "type": "string_too_short",
+                                        "loc": ["body", "last_name"],
+                                        "msg": "String should have at least 3 characters",
+                                        "input": "a",
+                                        "ctx": {"min_length": 3},
+                                    },
+                                ]
+                            },
+                        },
+                        "Maximum length validation": {
+                            "summary": "Maximum length validation",
+                            "value": {
+                                "detail": [
+                                    {
+                                        "type": "string_too_long",
+                                        "loc": ["body", "username"],
+                                        "msg": "String should have at most 50 characters",
+                                        "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                                        "aaaaaaaaaaaaa",
+                                        "ctx": {"max_length": 50},
+                                    },
+                                    {
+                                        "type": "string_too_long",
+                                        "loc": ["body", "first_name"],
+                                        "msg": "String should have at most 50 characters",
+                                        "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                                        "aaaaaaaaaaaaa",
+                                        "ctx": {"max_length": 50},
+                                    },
+                                    {
+                                        "type": "string_too_long",
+                                        "loc": ["body", "last_name"],
+                                        "msg": "String should have at most 50 characters",
+                                        "input": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                                        "aaaaaaaaaaaaa",
+                                        "ctx": {"max_length": 50},
+                                    },
                                 ]
                             },
                         },
@@ -558,6 +752,7 @@ async def create(
         saas_admin_data = SAASAdmin(**saas_admin_dict)
         async_session.add(saas_admin_data)
         await async_session.commit()
+        await async_session.refresh(saas_admin_data)
         await saas_admin_data.send_admin_credential(saas_admin_dict["password"])
         return JSONResponse(
             {"detail": "SAAS Admin has been created successfully."},
@@ -718,7 +913,7 @@ async def update(
         )
         await async_session.commit()
         return JSONResponse(
-            {"detail": f"{saas_admin_username} SAAS Admin has been updated successfully"},
+            {"detail": f"{saas_admin_username} SAAS Admin has been updated successfully."},
             status_code=status.HTTP_200_OK,
         )
     except IntegrityError:
@@ -777,9 +972,9 @@ async def delete(
             .options(load_only(SAASAdmin.id, SAASAdmin.username))
             .where(SAASAdmin.id == saas_admin_id)
         )
-        username = saas_admin.username
         if not saas_admin:
             return HTTPNotFoundError("SAAS Admin not found.")
+        username = saas_admin.username
         saas_admin.delete()
         await async_session.commit()
         return JSONResponse(
