@@ -43,18 +43,18 @@ repos:
         args: ["--reformat", "--format-css", "--format-js"]
 
       - id: ruff
-        name: Ruff Linter and Formatter
-        description: Python linter and formatter
-        entry: ruff check
-        args: [--fix,--unsafe-fixes, --exit-non-zero-on-fix]
+        name: ruff
+        description: "Run 'ruff' for extremely fast Python linting"
+        entry: ruff check 
+        args: [--fix,--unsafe-fixes, --force-exclude]
         language: python
         types: [python]
         require_serial: true
     
       - id: ruff-format
-        name: Ruff Formatter
-        description: Python formatter
-        entry: ruff format
+        name: ruff-format
+        description: "Run 'ruff format' for extremely fast Python formatting"
+        entry: ruff format --force-exclude
         language: python
         types: [python]
         require_serial: true

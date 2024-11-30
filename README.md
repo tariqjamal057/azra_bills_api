@@ -18,3 +18,4 @@ This SaaS application is designed for single and multi-store setups, enabling ef
 ## Authors
 
 - [@tariqjamal057](https://www.github.com/tariqjamal057)
+

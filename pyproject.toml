@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "azra_lms_api"
+name = "azra_bills_api"
 version = "1.0.0"
 description = "A SaaS-based laundry management system for single and multi-store setups. Enables bill generation, updates, customer assignment, and cash logging. Customers can view and pay bills via UPI, wallets, or cards and receive status reminders. Features dashboards, transaction reports, and high-value alerts for streamlined, secure operations."
 authors = ["Tariq Jamal A <tariqjamal4267324@gmail.com>"]
@@ -18,6 +18,12 @@ bcrypt = "^4.2.0"
 psycopg-binary = "^3.2.3"
 pydantic-settings = "^2.6.1"
 psycopg = "^3.2.3"
+sqlalchemy-easy-softdelete = "^0.8.3"
+fastapi-pagination = "^0.12.32"
+aiofiles = "^24.1.0"
+passlib = "^1.7.4"
+redis = "^5.2.0"
+eventlet = "^0.38.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -27,6 +33,9 @@ docformatter = "^1.7.5"
 djlint = "^1.35.4"
 pre-commit = "^4.0.1"
 ruff = "^0.7.2"
+faker = "^33.0.0"
+pytest-asyncio = "^0.24.0"
+watchdog = "^6.0.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -58,7 +67,7 @@ max_line_length=120
 [tool.ruff]
 # Exclude files and directories added in below list
 exclude = [
-    ".migrations",
+    "migrations",
     ".git",
     ".venv",
     ".vscode",
@@ -71,29 +80,5 @@ exclude = [
 line-length = 99
 
 [tool.ruff.lint]
-ignore = []
-
-# Allow fix for all enabled rules (when `--fix`) is provided.
-fixable = ["ALL"]
-unfixable = []
-
-# Allow unused variables when underscore-prefixed.
-dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
-
-[tool.ruff.format]
-# Like Black, use double quotes for strings.
-quote-style = "double"
-
-# Enable auto-formatting of code examples in docstrings. Markdown,
-# reStructuredText code/literal blocks and doctests are all supported.
-#
-# This is currently disabled by default, but it is planned for this
-# to be opt-out in the future.
-docstring-code-format = true
-
-# Set the line length limit used when formatting code snippets in
-# docstrings.
-#
-# This only has an effect when the `docstring-code-format` setting is
-# enabled.
-docstring-code-line-length = "dynamic"
+select = ["E", "F", "W", "Q", "UP", "I", "N"]
+preview = true
