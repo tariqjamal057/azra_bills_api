@@ -554,9 +554,11 @@ async def create(
         )
         if saas_admin:
             raise IntegrityError(statement=None, params=None, orig=Exception())
-        instance = SAASAdmin(**saas_admin_request.model_dump() | {"password": generate_password()})
-        async_session.add(instance)
+        saas_admin_dict = saas_admin_request.model_dump() | {"password": generate_password()}
+        saas_admin_data = SAASAdmin(**saas_admin_dict)
+        async_session.add(saas_admin_data)
         await async_session.commit()
+        await saas_admin_data.send_admin_credential(saas_admin_dict["password"])
         return JSONResponse(
             {"detail": "SAAS Admin has been created successfully."},
             status_code=status.HTTP_201_CREATED,

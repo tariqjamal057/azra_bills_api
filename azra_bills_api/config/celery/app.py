@@ -29,4 +29,6 @@ celery.conf.broker_url = settings.CELERY_BROKER_URL
 celery.conf.broker_connection_retry_on_startup = True
 
 
-celery.autodiscover_tasks([])  # point the app background module in list
+celery.autodiscover_tasks(
+    ["azra_bills_api.admin.tasks"]
+)  # point the app background module in list

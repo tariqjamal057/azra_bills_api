@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from sqlalchemy import Boolean, DateTime, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from azra_bills_api.admin.tasks.saas_admin import send_saas_admin_credentials
 from azra_bills_api.core.security import AuthenticationMixin
 from azra_bills_api.models import BaseModalWithSoftDelete
 
@@ -53,8 +54,34 @@ class SAASAdmin(BaseModalWithSoftDelete, AuthenticationMixin):
 
     @property
     def password(self):
+        """Getter method for the password property.
+
+        Returns:
+            str: The hashed password of the admin user.
+        """
         return self.hash_password
 
     @password.setter
     def password(self, password: str):
+        """Setter method for the password property.
+
+        This method hashes the provided plain text password before storing it.
+
+        Args:
+            password (str): The plain text password to be hashed and stored.
+        """
         self.hash_password = self.get_hash_password(password)
+
+    async def send_admin_credential(self, plain_password: str):
+        """Asynchronously send admin credentials to the user.
+
+        This method triggers a background task to send the admin's username,
+        email, and plain text password to the user.
+
+        Args:
+            plain_password (str): The plain text password to be sent to the admin.
+
+        Note:
+            This method uses a delay mechanism, suggesting it's part of a task queue system.
+        """
+        send_saas_admin_credentials.delay(self.username, self.email, plain_password)
