@@ -78,9 +78,9 @@ class BaseFactory:
         # Handle relationships before creating the instance
         kwargs = await cls._handle_relationships(kwargs)
 
-        mock_data = cls.generate_mock_data()
-        kwargs.update(mock_data)
-        instance = cls.model(**kwargs)
+        mock_data = cls.generate_mock_data() | kwargs
+        mock_data.update(kwargs)
+        instance = cls.model(**mock_data)
         session.add(instance)
         await session.commit()
 
