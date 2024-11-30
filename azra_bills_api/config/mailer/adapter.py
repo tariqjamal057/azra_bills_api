@@ -43,9 +43,9 @@ class EmailMessage:
 
     def __init__(
         self,
-        to: Optional[List[str]] = None,
-        from_: Optional[str] = None,
-        subject: Optional[str] = None,
+        to: List[str],
+        subject: str,
+        from_: str = ("AZRA Bills Admin", settings.MAIL_FROM),
         suppress_mail: bool = False,
         **kwargs,
     ):
@@ -68,6 +68,15 @@ class EmailMessage:
         self.attachments = {}
         self.suppress_mail = suppress_mail
         self.mailer = None
+
+    def set_from_email(self, email: str, username: Optional[str] = None) -> None:
+        """Sets the sender's email address.
+
+        Args:
+            email (str): The sender's email address.
+            username (Optional[str]): The username associated with the email address.
+        """
+        self.from_ = (username, email)
 
     def set_content(self, content_type: str, content: str) -> None:
         """Sets the content for the specified content type.
