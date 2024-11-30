@@ -2,6 +2,7 @@
 databases, creating database sessions, and mocking functions for testing purposes."""
 
 import os
+from typing import Optional
 from unittest.mock import MagicMock
 from urllib.parse import urlparse
 
@@ -11,6 +12,7 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
+from azra_bills_api.core.enums import OrderByType
 from azra_bills_api.models import BaseModal
 
 # Set up test database configuration
@@ -115,7 +117,16 @@ async def mocker(monkeypatch):
 
 @pytest_asyncio.fixture(scope="session")
 def faker():
-    """Fixture that provides a Faker instance for use in tests."""
-    faker = Faker()
-    faker.get_data_count = lambda: faker.random_int(1, 10)
-    yield faker
+    """Fixture that provides a Faker instance for use in tests.
+
+    Returns:
+        function: A function that yields a configured Faker instance.
+    """
+
+    def _faker(max_value: Optional[int] = None):
+        faker = Faker()
+        faker.get_data_count = lambda: faker.random_int(1, 10 if not max_value else max_value)
+        faker.get_order_by = lambda: faker.random_element(OrderByType.values())
+        return faker
+
+    return _faker
