@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.openapi.utils import get_openapi
 
-from azra_bills_api.admin.routes import admin_app
+from azra_store_lmi_api.admin.routes import admin_app
 
 app = FastAPI(
     title="AZRA Bills API",
