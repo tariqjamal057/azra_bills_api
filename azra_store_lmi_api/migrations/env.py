@@ -15,7 +15,7 @@ from alembic import context
 from sqlalchemy import text
 from sqlalchemy.engine import Connection
 
-from azra_store_lmi_api.admin.models import *  # noqa: F403
+from azra_store_lmi_api.apps.admin.models import *  # noqa: F403
 from azra_store_lmi_api.config.database import Base, async_engine
 from azra_store_lmi_api.config.settings import settings
 

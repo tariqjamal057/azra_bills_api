@@ -2,10 +2,10 @@ from fastapi import FastAPI
 from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.openapi.utils import get_openapi
 
-from azra_store_lmi_api.admin.routes import admin_app
+from azra_store_lmi_api.apps.admin.routes import admin_app
 
 app = FastAPI(
-    title="AZRA Bills API",
+    title="AZRA Store LMI API",
     summary="A SaaS laundry management system for single and multi-store businesses, "
     "facilitating bill generation, updates, customer assignment, and cash payment logging. "
     "Customers can view and pay bills through multiple channels and receive status reminders. "
@@ -74,7 +74,7 @@ async def custom_docs():
     Returns:
         HTMLResponse: The HTML content for the Swagger UI documentation.
     """
-    return get_swagger_ui_html(openapi_url="/openapi.json", title="AZRA Bills API Docs")
+    return get_swagger_ui_html(openapi_url="/openapi.json", title="AZRA Store LMI API Docs")
 
 
 # Mount the admin app at root

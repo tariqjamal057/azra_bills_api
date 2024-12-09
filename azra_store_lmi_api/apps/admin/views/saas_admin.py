@@ -29,8 +29,8 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import load_only
 
-from azra_store_lmi_api.admin.models.saas_admin import SAASAdmin
-from azra_store_lmi_api.admin.schemas.saas_admin import ListSaaSAdmin, SAASAdminRequest
+from azra_store_lmi_api.apps.admin.models.saas_admin import SAASAdmin
+from azra_store_lmi_api.apps.admin.schemas.saas_admin import ListSaaSAdmin, SAASAdminRequest
 from azra_store_lmi_api.config.logger.app import logger
 from azra_store_lmi_api.core.dependencies import get_db_session, paginator_query_params
 from azra_store_lmi_api.core.exceptions import (
@@ -891,9 +891,9 @@ async def update(
             .options(load_only(SAASAdmin.id, SAASAdmin.username))
             .where(SAASAdmin.id == saas_admin_id)
         )
-        saas_admin_username = saas_admin.username
         if not saas_admin:
             return HTTPNotFoundError("SAAS Admin not found.")
+        saas_admin_username = saas_admin.username
 
         if await async_session.scalar(
             select(
@@ -978,7 +978,8 @@ async def delete(
         saas_admin.delete()
         await async_session.commit()
         return JSONResponse(
-            f"{username} SAAS Admin has been deleted successfully.", status_code=status.HTTP_200_OK
+            {"detail": f"{username} SAAS Admin has been deleted successfully."},
+            status_code=status.HTTP_200_OK,
         )
     except Exception as exception:
         await async_session.rollback()

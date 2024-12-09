@@ -9,7 +9,7 @@ from azra_store_lmi_api.core.utils import BaseEnum
 from azra_store_lmi_api.models import BaseModalWithSoftDelete
 
 if TYPE_CHECKING:
-    from azra_store_lmi_api.admin.models import Store
+    from azra_store_lmi_api.apps.admin.models import Store
 
 
 class Holiday(BaseModalWithSoftDelete):

@@ -14,8 +14,8 @@ from httpx import AsyncClient
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from azra_store_lmi_api.admin.models import SAASAdmin
-from azra_store_lmi_api.admin.tests.factory import SAASAdminFactory
+from azra_store_lmi_api.apps.admin.models import SAASAdmin
+from azra_store_lmi_api.apps.admin.tests.factory import SAASAdminFactory
 from azra_store_lmi_api.core.enums import OrderByType
 from azra_store_lmi_api.test_utils import (
     assert_database_has,
@@ -133,7 +133,7 @@ async def test_list_param_errors(async_client: AsyncClient, params: dict, error_
 @pytest.mark.asyncio
 async def test_list_server_error(async_client: AsyncClient, mocker):
     """Test server error response when listing SAAS admins fails."""
-    await mocker("azra_store_lmi_api.admin.views.saas_admin.paginate", side_effect=Exception)
+    await mocker("azra_store_lmi_api.apps.admin.views.saas_admin.paginate", side_effect=Exception)
     response = await async_client.get(f"{BASE_ROUTE}?sort_by=id&page=1&size=10&order_by=asc")
     assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
     assert response.json() == {"detail": "Unable to list SAAS Admins, please try again later."}
@@ -164,7 +164,7 @@ async def test_create_succcess(
     """Test successful creation of a SAAS Admin."""
     mock_send_saas_admin_credentials = Mock()
     monkeypatch.setattr(
-        "azra_store_lmi_api.admin.tasks.saas_admin.send_saas_admin_credentials.delay",
+        "azra_store_lmi_api.apps.admin.tasks.saas_admin.send_saas_admin_credentials.delay",
         mock_send_saas_admin_credentials,
     )
     response = await async_client.post(f"{BASE_ROUTE}", json=body)
@@ -408,7 +408,7 @@ async def test_create_server_error(async_client: AsyncClient, mocker, body: dict
     This test ensures that the API returns a 500 status code with a user-friendly error message if
     an unexpected error occurs during the creation of a SAAS Admin.
     """
-    await mocker("azra_store_lmi_api.admin.views.saas_admin.SAASAdmin", side_effect=Exception)
+    await mocker("azra_store_lmi_api.apps.admin.views.saas_admin.SAASAdmin", side_effect=Exception)
     response = await async_client.post(f"{BASE_ROUTE}", json=body)
     assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
     assert response.json() == {"detail": "Unable to create SAAS Admin, please try again later."}
@@ -458,7 +458,7 @@ async def test_get_server_error(async_client: AsyncClient, mocker):
     This test ensures that the API returns a 500 status code with a user-friendly error message if
     an unexpected error occurs during the retrieval of a SAAS Admin.
     """
-    await mocker("azra_store_lmi_api.admin.views.saas_admin.SAASAdmin", side_effect=Exception)
+    await mocker("azra_store_lmi_api.apps.admin.views.saas_admin.SAASAdmin", side_effect=Exception)
     response = await async_client.get(f"{BASE_ROUTE}/0")
     assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
     assert response.json() == {
@@ -484,7 +484,9 @@ async def test_update_succcess(
         session=db_session, refreshable=True
     )
     sass_admin_username = saas_admin.username
-    response = await async_client.put(f"{BASE_ROUTE}/{saas_admin.id}", json=body)
+    response = await async_client.put(
+        f"{BASE_ROUTE}/{saas_admin.id}", json=body | {"email": faker_.email()}
+    )
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == {
         "detail": f"{sass_admin_username} SAAS Admin has been updated successfully."
@@ -572,8 +574,8 @@ async def test_update_server_error(async_client: AsyncClient, mocker, body: dict
     status code with a relevant error message when updating a SAAS Admin's information fails due to
     an unexpected error.
     """
-    await mocker("azra_store_lmi_api.admin.views.saas_admin.SAASAdmin", side_effect=Exception)
-    response = await async_client.post(f"{BASE_ROUTE}/0", json=body)
+    await mocker("azra_store_lmi_api.apps.admin.views.saas_admin.SAASAdmin", side_effect=Exception)
+    response = await async_client.put(f"{BASE_ROUTE}/0", json=body)
     assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
     assert response.json() == {"detail": "Unable to update SAAS Admin, please try again later."}
 
@@ -617,7 +619,7 @@ async def test_delete_server_error(async_client: AsyncClient, mocker):
     This test ensures that the API returns a 500 status code with a user-friendly error message if
     an unexpected error occurs during the deletion of a SAAS Admin.
     """
-    await mocker("azra_store_lmi_api.admin.views.saas_admin.SAASAdmin", side_effect=Exception)
+    await mocker("azra_store_lmi_api.apps.admin.views.saas_admin.SAASAdmin", side_effect=Exception)
     response = await async_client.delete(f"{BASE_ROUTE}/0")
     assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
     assert response.json() == {"detail": "Unable to delete SAAS Admin, please try again later."}

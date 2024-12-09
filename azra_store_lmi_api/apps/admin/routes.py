@@ -9,7 +9,7 @@ This module also configures CORS middleware for the application.
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from azra_store_lmi_api.admin import saas_admin_router
+from azra_store_lmi_api.apps.admin import saas_admin_router
 
 admin_app = FastAPI(
     title="AZRA Bills Admin App",

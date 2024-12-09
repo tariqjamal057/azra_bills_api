@@ -8,7 +8,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from azra_store_lmi_api.models import BaseModalWithSoftDelete
 
 if TYPE_CHECKING:
-    from azra_store_lmi_api.admin.models import State
+    from azra_store_lmi_api.apps.admin.models import State
 
 
 class Country(BaseModalWithSoftDelete):

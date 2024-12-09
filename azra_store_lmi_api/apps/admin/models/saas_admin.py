@@ -5,12 +5,12 @@ from typing import TYPE_CHECKING, Optional
 from sqlalchemy import Boolean, DateTime, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from azra_store_lmi_api.admin.tasks.saas_admin import send_saas_admin_credentials
+from azra_store_lmi_api.apps.admin.tasks.saas_admin import send_saas_admin_credentials
 from azra_store_lmi_api.core.security import AuthenticationMixin
 from azra_store_lmi_api.models import BaseModalWithSoftDelete
 
 if TYPE_CHECKING:
-    from azra_store_lmi_api.admin.models import Store
+    from azra_store_lmi_api.apps.admin.models import Store
 
 
 class SAASAdmin(BaseModalWithSoftDelete, AuthenticationMixin):

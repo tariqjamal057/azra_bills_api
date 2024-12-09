@@ -11,7 +11,7 @@ from azra_store_lmi_api.core.utils import BaseEnum, ULIDGenerator
 from azra_store_lmi_api.models import BaseModalWithSoftDelete
 
 if TYPE_CHECKING:
-    from azra_store_lmi_api.admin.models import City, Country, Holiday, SAASAdmin, State
+    from azra_store_lmi_api.apps.admin.models import City, Country, Holiday, SAASAdmin, State
 
 
 class Store(BaseModalWithSoftDelete):

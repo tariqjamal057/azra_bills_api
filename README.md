@@ -1,4 +1,4 @@
-# AZRA Bills API
+# AZRA Store LMI API
 
 This SaaS application is designed for single and multi-store setups, enabling efficient management of store inventory, laundry services, and retail/wholesale clothing stores. The platform simplifies operations, enhances customer convenience, and supports diverse business needs.
 

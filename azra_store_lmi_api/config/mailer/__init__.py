@@ -1,4 +1,4 @@
-"""This module provides email functionality for the Azra Bills API.
+"""This module provides email functionality for the AZRA Store LMI API.
 
 It imports the EmailMessage class from the adapter module, which is used
 for creating and sending email messages within the application.

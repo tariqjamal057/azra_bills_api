@@ -9,7 +9,7 @@ from azra_store_lmi_api.core.utils import BaseEnum
 from azra_store_lmi_api.models import BaseModalWithSoftDelete
 
 if TYPE_CHECKING:
-    from azra_store_lmi_api.admin.models import City, Country
+    from azra_store_lmi_api.apps.admin.models import City, Country
 
 
 class State(BaseModalWithSoftDelete):

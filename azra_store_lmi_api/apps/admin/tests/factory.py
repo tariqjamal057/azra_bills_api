@@ -5,7 +5,7 @@ It uses the BaseFactory class and polyfactory library to create realistic test d
 
 from typing import Any, Dict
 
-from azra_store_lmi_api.admin.models.saas_admin import SAASAdmin
+from azra_store_lmi_api.apps.admin.models.saas_admin import SAASAdmin
 from azra_store_lmi_api.base_factory import BaseFactory
 
 

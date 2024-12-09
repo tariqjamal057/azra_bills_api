@@ -30,5 +30,5 @@ celery.conf.broker_connection_retry_on_startup = True
 
 
 celery.autodiscover_tasks(
-    ["azra_store_lmi_api.admin.tasks"]
+    ["azra_store_lmi_api.apps.admin.tasks"]
 )  # point the app background module in list
